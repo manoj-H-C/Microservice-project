@@ -22,15 +22,16 @@ public class EmployeeController {
 
     // Build Save Employee REST API
     @PostMapping
-    public ResponseEntity<EmployeeDto> saveEmployee(@RequestBody EmployeeDto employeeDto){
+    public ResponseEntity<EmployeeDto> saveEmployee(@RequestBody EmployeeDto employeeDto) {
         EmployeeDto savedEmployee = employeeService.saveEmployee(employeeDto);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 
     // Build Get Employee REST API
     @GetMapping("{id}")
-    public ResponseEntity<APIResponseDto> getEmployee(@PathVariable("id") Long employeeId){
+    public ResponseEntity<APIResponseDto> getEmployee(@PathVariable("id") Long employeeId) {
         APIResponseDto apiResponseDto = employeeService.getEmployeeById(employeeId);
         return new ResponseEntity<>(apiResponseDto, HttpStatus.OK);
     }
+
 }
