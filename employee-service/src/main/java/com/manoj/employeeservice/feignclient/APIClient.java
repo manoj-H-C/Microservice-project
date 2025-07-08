@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface APIClient {
     // Build get department rest api
     //APIClient will internally use the load balancer to call the rest API available instance of micro service.
-    @GetMapping("api/departments/{department-code}")
-    DepartmentDto getDepartment(@PathVariable("department-code") String departmentCode);
+    @GetMapping("api/departments/{departmentCode}")
+    DepartmentDto getDepartment(@PathVariable("departmentCode") String departmentCode);
 }
