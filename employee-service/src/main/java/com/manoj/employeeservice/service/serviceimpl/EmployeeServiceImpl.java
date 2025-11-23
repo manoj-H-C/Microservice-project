@@ -4,6 +4,7 @@ import com.manoj.employeeservice.dto.APIResponseDto;
 import com.manoj.employeeservice.dto.DepartmentDto;
 import com.manoj.employeeservice.dto.EmployeeDto;
 import com.manoj.employeeservice.entity.Employee;
+import com.manoj.employeeservice.exception.ApiException;
 import com.manoj.employeeservice.feignclient.APIClient;
 import com.manoj.employeeservice.mapper.EmployeeMapper;
 import com.manoj.employeeservice.repository.EmployeeRepository;
@@ -14,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -32,6 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     @Override
     public EmployeeDto saveEmployee(EmployeeDto employeeDto) {
+        if(employeeRepository.existsByEmail(employeeDto.getEmail())){
+            throw new ApiException(HttpStatus.BAD_REQUEST,"Email is already in use"); // Custom exception
+        }
 
         Employee employee = EmployeeMapper.mapToEmployee(employeeDto);
         Employee savedEmployee = employeeRepository.save(employee);
