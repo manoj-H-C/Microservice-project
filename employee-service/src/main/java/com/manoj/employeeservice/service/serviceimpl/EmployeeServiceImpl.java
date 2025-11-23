@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return savedEmployeeDto;
     }
-    //@CircuitBreaker(name = "getEmployeeByIdCB", fallbackMethod = "getDefaultDepartment")
+    @CircuitBreaker(name = "getEmployeeByIdCB", fallbackMethod = "getDefaultDepartment")
     @Retry(name = "getEmployeeByIdCB", fallbackMethod = "getDefaultDepartment")
     @Override
     public APIResponseDto getEmployeeById(Long employeeId) {
